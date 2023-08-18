@@ -14,7 +14,7 @@ all: $(WORDPRESS_VOLUME_PATH) $(MARIADB_VOLUME_PATH)
 	$(MAKE) up
 
 .PHONY: up
-up:
+up: $(WORDPRESS_VOLUME_PATH) $(MARIADB_VOLUME_PATH)
 	docker-compose up --build
 
 .PHONY: down
