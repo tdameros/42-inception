@@ -1,12 +1,13 @@
 FROM debian:buster
 
-RUN apt update -y \
-    && apt upgrade -y
-RUN apt install -y wget \
-                   php7.3 \
-                   php-fpm \
-				   php-mysql \
-				   mariadb-client
+RUN apt update -y && \
+    apt upgrade -y && \
+    apt install -y wget \
+      php7.3 \
+      php-fpm \
+	  php-mysql \
+	  mariadb-client && \
+    rm -rf /var/lib/apt/lists/*
 
 # Change PHP config file
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf

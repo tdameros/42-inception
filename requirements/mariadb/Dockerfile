@@ -5,9 +5,10 @@ ARG SQL_USER
 ARG SQL_PASSWORD
 ARG SQL_ROOT_PASSWORD
 
-RUN apt update -y \
-    && apt upgrade -y
-RUN apt install mariadb-server -y
+RUN apt update -y && \
+    apt upgrade -y && \
+    apt install mariadb-server -y && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 
