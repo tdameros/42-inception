@@ -1,13 +1,9 @@
-DIRECTORY			=	$(shell basename "$$(pwd)")
 
-WORDPRESS_VOLUME	=	$(DIRECTORY)_wordpress
-MARIADB_VOLUME		=	$(DIRECTORY)_mariadb
+DOCKER_COMPOSE_PATH	= srcs/docker-compose.yml
+DOCKER_COMPOSE		= docker-compose -f $(DOCKER_COMPOSE_PATH)
 
-NGINX_IMAGE			=	nginx
-WORDPRESS_IMAGE		=	wordpress
-MARIADB_IMAGE		=	mariadb
 
-include .env
+include srcs/.env
 
 .PHONY: all
 all: $(WORDPRESS_VOLUME_PATH) $(MARIADB_VOLUME_PATH)
@@ -15,24 +11,23 @@ all: $(WORDPRESS_VOLUME_PATH) $(MARIADB_VOLUME_PATH)
 
 .PHONY: up
 up: $(WORDPRESS_VOLUME_PATH) $(MARIADB_VOLUME_PATH)
-	docker-compose up --build
+	$(DOCKER_COMPOSE) up --build
 
 .PHONY: down
 down:
-	docker-compose down
+	$(DOCKER_COMPOSE) down
 
 .PHONY: stop
 stop:
-	docker-compose stop
+	$(DOCKER_COMPOSE) stop
 
 .PHONY: restart
 restart:
-	docker-compose restart
+	$(DOCKER_COMPOSE) restart
 
 .PHONY: clean
-clean: down
-	docker volume rm -f $(WORDPRESS_VOLUME) $(MARIADB_VOLUME)
-	docker image rm -f $(NGINX_IMAGE) $(WORDPRESS_IMAGE) $(MARIADB_IMAGE)
+clean:
+	$(DOCKER_COMPOSE) down --volumes --rmi all
 
 .PHONY: fclean
 fclean: clean
