@@ -1,6 +1,6 @@
 
 DOCKER_COMPOSE_PATH	= srcs/docker-compose.yml
-DOCKER_COMPOSE		= docker-compose -f $(DOCKER_COMPOSE_PATH)
+DOCKER_COMPOSE		= docker compose -f $(DOCKER_COMPOSE_PATH)
 
 
 include srcs/.env
